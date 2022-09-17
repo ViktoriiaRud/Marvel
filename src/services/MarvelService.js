@@ -15,11 +15,11 @@ class MarvelService {
     }
 
     getAllCharacters = () => {
-        return this.getResource(`${this._apiBase}characters?${this._apiKey}`);
+        return this.getResource(`${this._apiBase}characters?limit=10&offset=210&${this._apiKey}`);
     } 
 
     getCharacter = (id) => {
-        return this.getResource(`${this._apiBase}characters/${id}? ${this._apiKey}`);
+        return this.getResource(`${this._apiBase}characters/${id}?${this._apiKey}`);
     } 
 }
 
