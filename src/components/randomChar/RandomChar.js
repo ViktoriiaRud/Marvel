@@ -13,7 +13,8 @@ class RandomChar extends Component {
 
     state = {
       char: {},
-      loading: true
+      loading: true,
+      error: false
     }
 
 
@@ -22,7 +23,15 @@ class RandomChar extends Component {
   onCharLoaded = (char) => {
     this.setState({
         char,
-        loading: false
+        loading: false, 
+    })
+  }
+
+
+  onError = () => {
+    this.setState({
+        loading: false,
+        error: true
     })
   }
 
@@ -31,6 +40,7 @@ class RandomChar extends Component {
     this.marvelService
     .getCharacter(id)
     .then(this.onCharLoaded)
+    .catch(this.onError);
   }
 
     render()  {
