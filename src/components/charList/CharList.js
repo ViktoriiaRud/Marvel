@@ -1,7 +1,46 @@
+import {Component} from 'react';
+import MarvelService from '../../services/MarvelService';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import Spinner from '../spinner/Spinner';
+
 import './charList.scss';
 import abyss from '../../resources/img/abyss.jpg';
 
-const CharList = () => {
+
+
+class CharList extends Component {
+    state = {
+    charlist: [],
+    loading: true,
+    error: false
+    }
+
+    marvelService = new MarvelService()
+
+    componentDidMount() {
+        this.marvelService.getAllCharacters()
+        .then(this.onCharListLoaded)
+        .catch(this.onError)
+    }
+
+  
+    onCharListLoaded = () => {
+        this.setState({
+            loading: false
+        })
+    }
+
+ 
+    onError = () => {
+        this.setState({
+            loading: false,
+            error: true
+        })
+      }
+
+
+
+render() {
     return (
         <div className="char__list">
             <ul className="char__grid">
@@ -47,6 +86,9 @@ const CharList = () => {
             </button>
         </div>
     )
+}
+
+    
 }
 
 export default CharList;
