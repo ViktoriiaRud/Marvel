@@ -47,7 +47,7 @@ class RandomChar extends Component {
 
   onCharLoading = () => {
     this.setState({
-        loading: true,
+        loading: true
     })
 }
 
@@ -103,6 +103,11 @@ class RandomChar extends Component {
 const View = ({char}) => {
     const {thumbnail, name, description, homepage, wiki,} = char;
 
+    let imgStyle = {'objectFit' : 'cover'};
+    if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
+        imgStyle = {'objectFit' : 'contain'};
+    }
+
     return (
         <div className="randomchar__block">
         <img src={thumbnail} alt="Random character" className="randomchar__img"/>
@@ -123,4 +128,6 @@ const View = ({char}) => {
     </div>
     )
 }
+
+
 export default RandomChar;
