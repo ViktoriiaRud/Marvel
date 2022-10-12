@@ -37,12 +37,12 @@ class CharList extends Component {
     }
 
   
-    onCharListLoaded = (charList) => {
-        this.setState({
-            charList,
-            loading: false,
-            newItemLoading: false,
-        })
+    onCharListLoaded = (newCharList) => {
+        this.setState(({charList}) => ({
+                charList: [...charList, ...newCharList],
+                loading: false,
+                newItemLoading: false,
+            }))
     }
 
  
