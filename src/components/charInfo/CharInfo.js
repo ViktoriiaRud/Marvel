@@ -24,7 +24,7 @@ class CharInfo extends Component {
     }
 
 
-      componentDidUpdate(prevProps, prevState) {
+      componentDidUpdate(prevProps) {
         if (this.props.charId !== prevProps.carId) {
             this.updateChar();
 
@@ -39,7 +39,7 @@ class CharInfo extends Component {
 
             this.onCharLoading();
 
-            this.MarvelService
+            this.marvelService
             .getCharacter(charId)
             .then(this.onCharLoaded)
             .catch(this.onError);
@@ -128,7 +128,7 @@ const View = ({char}) => {
                 {comics.length > 0 ? null: 'There is not comics'}
                    {
                     comics.map((item, i) => {
-                        if(i > 10) return;
+                        if(i > 9) return;
                       return (
                         <li key={i} className="char__comics-item">
                         {item.name}

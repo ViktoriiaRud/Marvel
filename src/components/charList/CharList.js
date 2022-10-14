@@ -1,5 +1,5 @@
 import {Component} from 'react';
-
+import PropTypes from 'prop-types';
 import MarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
@@ -44,7 +44,7 @@ class CharList extends Component {
 
          let ended = false;
          if (newCharList.length > 9) {
-            ended = true; 
+            ended = true;
          }
 
 
@@ -62,8 +62,8 @@ class CharList extends Component {
  
     onError = () => {
         this.setState({
-            loading: false,
-            error: true
+            error: true,
+            loading: false
         })
       }
 
@@ -171,6 +171,10 @@ render() {
 }
 
     
+}
+
+CharList.propTypes = {
+    onCharSelected: PropTypes.func.isRequired
 }
 
 export default CharList;

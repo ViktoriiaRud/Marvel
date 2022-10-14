@@ -18,7 +18,6 @@ class App extends Component {
         this.setState({
             selectedChar: id
         })
-
     }
 
 
@@ -36,7 +35,7 @@ class App extends Component {
                            <CharList onCharSelected={this.onCharSelected}/>
                         </ErrorBoundary>
                           <ErrorBoundary>
-                            <CharInfo charId={this.selectedChar}/>
+                            <CharInfo charId={this.state.selectedChar}/>
                           </ErrorBoundary>
                        
                     </div>
@@ -55,3 +54,7 @@ App.propTypes = {
 
 
 export default App;
+
+
+
+
