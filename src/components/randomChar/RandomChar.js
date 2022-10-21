@@ -1,5 +1,5 @@
-import {Component} from 'react';
-import MarvelService from '../../services/MarvelService';
+import {useState, useEffect} from 'react';
+import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 
@@ -10,72 +10,38 @@ import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 
-class RandomChar extends Component {
-      state = {
-      char: {},
-      loading: true,
-      error: false
+ const RandomChar = () => {
+    const [char, setChar] = useState(null);
+    const {loading, error, getCharacter} = useMarvelService();
+
+
+    useEffect(() => {
+        updateChar();
+        const timerId = setInterval(updateChar, 60000);
+
+        return () => {
+            clearInterval(timerId)
+        }
+    }, [])
+
+
+ const  onCharLoaded = (char) => {
+        setChar(char);
     }
+  
 
-
-  marvelService = new MarvelService();
-
-  componentDidMount() {
-    this.updateChar();
-    // this.timerId = setInterval(this.updateChar, 3000);
-  }
-
-
-  componentDidUpdate() {
-    clearInterval(this.timerId);
-  }
-
-
-  componentWillUnmount() {
-  }
-
-
-
-
-  onCharLoaded = (char) => {
-    this.setState({
-        char,
-        loading: false, 
-    })
-  }
-
-
-  onCharLoading = () => {
-    this.setState({
-        loading: true
-    })
-}
-
-
-  onError = () => {
-    this.setState({
-        loading: false,
-        error: true
-    })
-  }
-
-
-  updateChar = () => {
+  const updateChar = () => {
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-    this.onCharLoading();
-    this.marvelService
-    .getCharacter(id)
-    .then(this.onCharLoaded)
-    .catch(this.onError);
+    getCharacter(id)
+    .then(onCharLoaded)
   }
 
 
-    render()  {
-        const {char, loading, error} = this.state;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
-        const content = !(loading || error) ? <View char={char}/> : null;
-    
+        const content = !(loading || error || !char) ? <View char={char}/> : null;
+
+
         return (
             <div className="randomchar">
                 {errorMessage},
@@ -96,13 +62,12 @@ class RandomChar extends Component {
                 </div>
             </div>
         )
-    }
-}
+
+  }
 
 
-const View = ({char}) => {
+ const View = ({char}) => {
     const {name, description, thumbnail, homepage, wiki} = char;
-
     let imgStyle = {'objectFit' : 'cover'};
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
         imgStyle = {'objectFit' : 'contain'};
@@ -110,24 +75,38 @@ const View = ({char}) => {
 
     return (
         <div className="randomchar__block">
-        <img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle}/>
-        <div className="randomchar__info">
-            <p className="randomchar__name">{name}</p>
-            <p className="randomchar__descr">
-                {description}
-            </p>
-            <div className="randomchar__btns">
-                <a href={homepage} className="button button__main">
-                    <div className="inner">homepage</div>
-                </a>
-                <a href={wiki} className="button button__secondary">
-                    <div className="inner">Wiki</div>
-                </a>
+            <img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle}/>
+            <div className="randomchar__info">
+                <p className="randomchar__name">{name}</p>
+                <p className="randomchar__descr">
+                    {description}
+                </p>
+                <div className="randomchar__btns">
+                    <a href={homepage} className="button button__main">
+                        <div className="inner">homepage</div>
+                    </a>
+                    <a href={wiki} className="button button__secondary">
+                        <div className="inner">Wiki</div>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
     )
-}
-
+    }
 
 export default RandomChar;
+
+
+
+
+
+
+  
+
+ 
+   
+
+
+
+   
+
