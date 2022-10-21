@@ -8,23 +8,12 @@ import PropTypes from 'prop-types';
 
 import decoration from '../../resources/img/vision.png';
 
-//     class App extends Comment {
-//     state = {
-//         selectedChar: null
-//     }
-//     onCharSelected = (id) => {
-//         this.setState({
-//             selectedChar: id
-//         })
-//     }
+    const App = () => {
 
-
-        const App = () => {
-
-        const [selectedChar, setChar] = useState(null);
+    const [selectedChar, setChar] = useState(null);
     
 
-       const onCharSelected = (id) => {
+    const onCharSelected = (id) => {
             setChar(id);
         }
     
