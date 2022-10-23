@@ -1,48 +1,32 @@
-import {useState} from 'react';
+
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+
 import AppHeader from "../appHeader/AppHeader";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
-import ErrorBoundary from '../errorBoundary/ErrorBoundary';
+
 import PropTypes from 'prop-types';
 
-import decoration from '../../resources/img/vision.png';
+import { MainPage, ComicsPage } from '../pages';
 
     const App = () => {
 
-    const [selectedChar, setChar] = useState(null);
-    
-
-    const onCharSelected = (id) => {
-            setChar(id);
-        }
-    
-        return (
+    return (
+         <Router>
             <div className="app">
-                <AppHeader/>
-                <main>
-                    <ErrorBoundary>
-                      <RandomChar/>
-                    </ErrorBoundary>
-
-                    <div className="char__content">
-                        <ErrorBoundary>
-                           <CharList onCharSelected={onCharSelected}/>
-                        </ErrorBoundary>
-                          <ErrorBoundary>
-                            <CharInfo charId={selectedChar}/>
-                          </ErrorBoundary>
-                       
-                    </div>
-                    <img className="bg-decoration" src={decoration} alt="vision"/>
-                </main>
+             <AppHeader/>
+            <main>
+                <Routes>
+                    <Route end path="/" element={<MainPage/>}/>
+                    <Route end path="/comics" element={<ComicsPage/>}/>
+                </Routes>
+            </main>
             </div>
-        )
+         </Router>
+     )
     }
 
 
 
-App.propTypes = {
+    App.propTypes = {
     onCharSelected: PropTypes.func
 
 }
