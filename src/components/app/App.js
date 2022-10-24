@@ -5,7 +5,7 @@ import AppHeader from "../appHeader/AppHeader";
 
 import PropTypes from 'prop-types';
 
-import { MainPage, ComicsPage } from '../pages';
+import { MainPage, ComicsPage, Page404 } from '../pages';
 
     const App = () => {
 
@@ -17,6 +17,10 @@ import { MainPage, ComicsPage } from '../pages';
                 <Routes>
                     <Route end path="/" element={<MainPage/>}/>
                     <Route end path="/comics" element={<ComicsPage/>}/>
+                    
+
+                    <Route end path="*" element={<Page404/>}/>
+                     
                 </Routes>
             </main>
             </div>
