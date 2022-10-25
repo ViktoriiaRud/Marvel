@@ -74,6 +74,11 @@ import mjolnir from '../../resources/img/mjolnir.png';
         imgStyle = {'objectFit' : 'contain'};
     }
 
+
+
+
+
+
     return (
         <div className="randomchar__block">
             <img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle}/>

@@ -18,11 +18,10 @@ const MainPage = () => {
         }
     
 
-    return(
-
+    return   (
         <>
             <ErrorBoundary>
-                        <RandomChar/>
+                <RandomChar/>
                     </ErrorBoundary>
                     <div className="char__content">
                         <ErrorBoundary>
@@ -35,6 +34,7 @@ const MainPage = () => {
                     <img className="bg-decoration" src={decoration} alt="vision"/>
         </>
     )
+   
 
 }
 
